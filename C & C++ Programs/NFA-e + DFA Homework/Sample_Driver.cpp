@@ -56,5 +56,7 @@ int main()
     cout << "b: " << newDFA.isAcceptedString("b") << endl;
     cout << "aaacccb: " << newDFA.isAcceptedString("aaacccb") << endl;
 
+    cout << endl << "Press enter to exit: ";
+    getchar();
     return 0;
 }
