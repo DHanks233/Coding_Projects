@@ -70,5 +70,6 @@ int main()
     //Now that all Programs and their Statements are created, begin simulation
     runSimulation(activeQueue);
 
+    getchar();
     return 0;
 }
