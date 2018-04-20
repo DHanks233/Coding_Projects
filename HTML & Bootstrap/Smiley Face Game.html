@@ -1,0 +1,68 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>The Matching Game</title>
+<style>
+img {position: absolute}
+div {position: absolute; width: 500px; height: 500px}
+h2 {font-family: verdana}
+p {font-family: verdana}
+#rightSide {left: 500px; border-left: 1px solid black}
+</style>
+
+<script>
+var numberOfFaces = 5;
+var theLeftSide = document.getElementById("leftSide");
+var theRightSide = document.getElementById("rightSide");
+var theBody = document.getElementsByTagName("body")[0];
+
+function generateFaces()
+{
+	for(var i = 0; i < numberOfFaces; i++)
+	{
+		var smileyFace = document.createElement("img");
+		smileyFace.src="http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+		smileyFace.style.top = Math.floor(Math.random() * 401);
+		smileyFace.style.left = Math.floor(Math.random() * 401);
+		document.getElementById("leftSide").appendChild(smileyFace);
+	}
+	var leftSideImages = document.getElementById("leftSide").cloneNode(true);
+	var lastChild = leftSideImages.lastChild;
+	leftSideImages.removeChild(lastChild);
+	document.getElementById("rightSide").appendChild(leftSideImages);
+	document.getElementById("leftSide").lastChild.onclick = function nextLevel(event)
+	{
+		event.stopPropagation();
+		numberOfFaces += 5;
+		deleteAllChildren();
+		generateFaces();
+	}
+	document.getElementById("theBody").onclick = function gameOver()
+	{
+		alert("Sorry, you guessed incorrectly!\nGame Over!")
+		document.getElementById("theBody").onclick = null;
+		document.getElementById("leftSide").lastChild.onclick = null;
+	}
+}
+
+function deleteAllChildren()
+{
+	while(document.getElementById("leftSide").firstChild)
+	{
+		document.getElementById("leftSide").removeChild(document.getElementById("leftSide").firstChild);
+	}
+	while(document.getElementById("rightSide").firstChild)
+	{
+		document.getElementById("rightSide").removeChild(document.getElementById("rightSide").firstChild);
+	}
+}
+</script>
+</head>
+
+<body id="theBody" onload="generateFaces()">
+<h2>The Matching Game</h2>
+<p>Click on the extra smiley face on the left side!</p>
+<div id="leftSide"></div>
+<div id="rightSide"></div>
+</body>
+</html>
